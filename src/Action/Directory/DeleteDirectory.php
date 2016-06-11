@@ -15,7 +15,7 @@ class DeleteDirectory extends Action
 	 */
 	public function __construct($dir)
 	{
-		$this->dir = realpath($dir);
+		$this->dir = $dir;
 	}
 
 	/**

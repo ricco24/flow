@@ -27,7 +27,7 @@ class CreateDirectory extends Action
 	 */
 	public function __construct($dir, $mode = 0777, $recursive = false, $force = false)
 	{
-		$this->dir = realpath($dir);
+		$this->dir = $dir;
 		$this->mode = $mode;
 		$this->recursive = $recursive;
 		$this->force = $force;
@@ -47,9 +47,7 @@ class CreateDirectory extends Action
 				return;
 			}
 
-			$delete = new DeleteDirectory($this->dir);
-			$delete->setLevel($this->getNextLevel());
-			$delete->run($renderer);
+			$this->runAction(new DeleteDirectory($this->dir), $renderer);
 		}
 
 		mkdir($this->dir, $this->mode, $this->recursive)

@@ -4,10 +4,14 @@ namespace Kelemen\Flow;
 
 use Kelemen\Flow\Action\Action;
 use Kelemen\Flow\Action\Command\RunCommand;
+use Kelemen\Flow\Action\Composer\InstallComposer;
+use Kelemen\Flow\Action\Composer\UpdateComposer;
 use Kelemen\Flow\Action\Database\Mysql\CreateDatabaseMysql;
 use Kelemen\Flow\Action\Database\Mysql\DropDatabaseMysql;
 use Kelemen\Flow\Action\DefaultRenderer;
 use Kelemen\Flow\Action\Directory\CreateDirectory;
+use Kelemen\Flow\Action\Directory\DeleteDirectory;
+use Kelemen\Flow\Action\Directory\MoveDirectory;
 use Kelemen\Flow\Renderer\Renderer;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -75,6 +79,25 @@ class Flow
 	}
 
 	/**
+	 * Delete directory
+	 * @param string $dir
+	 */
+	public function deleteDirectory($dir)
+	{
+		$this->addAction(new DeleteDirectory($dir));
+	}
+
+	/**
+	 * Move directory to new destination
+	 * @param string $oldDirName
+	 * @param string $newDirName
+	 */
+	public function moveDirectory($oldDirName, $newDirName)
+	{
+		$this->addAction(new MoveDirectory($oldDirName, $newDirName));
+	}
+
+	/**
 	 * Run any shell command
 	 * @param string $command
 	 * @param bool $printOutput
@@ -109,5 +132,23 @@ class Flow
 	public function dropDatabaseMysql($user, $password, $dbName)
 	{
 		$this->addAction(new DropDatabaseMysql($user, $password, $dbName));
+	}
+
+	/**
+	 * Execute composer update
+	 * @param string $dir
+	 */
+	public function composerUpdate($dir)
+	{
+		$this->addAction(new UpdateComposer($dir));
+	}
+
+	/**
+	 * Execute composer install
+	 * @param string $dir
+	 */
+	public function composerInstall($dir)
+	{
+		$this->addAction(new InstallComposer($dir));
 	}
 }

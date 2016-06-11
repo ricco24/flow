@@ -35,6 +35,17 @@ abstract class Action
 	}
 
 	/**
+	 * Run another sub-action
+	 * @param Action $action
+	 * @param Renderer $renderer
+	 */
+	protected function runAction(Action $action, Renderer $renderer)
+	{
+		$action->setLevel($this->getNextLevel());
+		$action->run($renderer);
+	}
+
+	/**
 	 * Execute action
 	 * @param Renderer $renderer
 	 * @return void
