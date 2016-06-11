@@ -4,7 +4,6 @@ namespace Kelemen\Flow\Action\Command;
 
 use Kelemen\Flow\Action\Action;
 use Kelemen\Flow\Renderer\Renderer;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
 class RunCommand extends Action
@@ -51,28 +50,27 @@ class RunCommand extends Action
 	}
 
 	/**
-	 * @param OutputInterface $output
 	 * @param Renderer $renderer
 	 */
-	public function run(OutputInterface $output, Renderer $renderer)
+	public function run(Renderer $renderer)
 	{
-		$renderer->writeln($output, 'Executing command ' . $renderer->highlight($this->command));
+		$renderer->writeln($this, 'Executing command ' . $renderer->highlight($this->command));
 		$process = new Process($this->command, $this->cwd, $this->env, $this->input, $this->timeout, $this->options);
 
 		$callback = $this->printOutput
-			? function ($type, $buffer) use ($output, $renderer) {
-				$renderer->write($output, $buffer, 1);
+			? function ($type, $buffer) use ($renderer) {
+				$renderer->write($this, $buffer, 1);
 			}
 			: null;
 
 		$process->run($callback);
 
 		if ($process->isSuccessful()) {
-			$renderer->writeSuccess($output, 'Command ' . $renderer->highlight($this->command) . ' was executed');
+			$renderer->writeSuccess($this, 'Command ' . $renderer->highlight($this->command) . ' was executed');
 			return;
 		}
 
-		$renderer->writeError($output, 'Command ' . $renderer->highlight($this->command) . ' was not executed');
-		$renderer->writeError($output, 'Reason: ' . $process->getErrorOutput());
+		$renderer->writeError($this, 'Command ' . $renderer->highlight($this->command) . ' was not executed');
+		$renderer->writeError($this, 'Reason: ' . $process->getErrorOutput());
 	}
 }

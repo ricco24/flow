@@ -40,9 +40,11 @@ class Flow
 	 */
 	public function run(OutputInterface $output)
 	{
+		$this->renderer->setOutput($output);
+
 		foreach ($this->actions as $action) {
-			$this->renderer->writeSeparator($output);
-			$action->run($output, $this->renderer);
+			$this->renderer->writeCommandSeparator();
+			$action->run($this->renderer);
 		}
 	}
 

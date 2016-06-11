@@ -4,7 +4,6 @@ namespace Kelemen\Flow\Action\Directory;
 
 use Kelemen\Flow\Action\Action;
 use Kelemen\Flow\Renderer\Renderer;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class CreateDirectory extends Action
 {
@@ -35,26 +34,26 @@ class CreateDirectory extends Action
 	}
 
 	/**
-	 * @param OutputInterface $output
+
 	 * @param Renderer $renderer
 	 */
-	public function run(OutputInterface $output, Renderer $renderer)
+	public function run(Renderer $renderer)
 	{
-		$renderer->writeln($output, 'Creating directory ' . $renderer->highlight($this->dir));
+		$renderer->writeln($this, 'Creating directory ' . $renderer->highlight($this->dir));
 
 		if (is_dir($this->dir)) {
 			if (!$this->force) {
-				$renderer->writeSkip($output, 'Directory ' . $renderer->highlight($this->dir) . ' exists');
+				$renderer->writeSkip($this, 'Directory ' . $renderer->highlight($this->dir) . ' exists');
 				return;
 			}
 
 			$delete = new DeleteDirectory($this->dir);
 			$delete->setLevel($this->getNextLevel());
-			$delete->run($output);
+			$delete->run($renderer);
 		}
 
 		mkdir($this->dir, $this->mode, $this->recursive)
-			? $renderer->writeSuccess($output, 'Directory ' . $renderer->highlight($this->dir) . ' was created')
-			: $renderer->writeError($output, 'Directory ' . $renderer->highlight($this->dir) . ' was not created');
+			? $renderer->writeSuccess($this, 'Directory ' . $renderer->highlight($this->dir) . ' was created')
+			: $renderer->writeError($this, 'Directory ' . $renderer->highlight($this->dir) . ' was not created');
 	}
 }

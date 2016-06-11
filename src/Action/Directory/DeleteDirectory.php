@@ -4,7 +4,6 @@ namespace Kelemen\Flow\Action\Directory;
 
 use Kelemen\Flow\Action\Action;
 use Kelemen\Flow\Renderer\Renderer;
-use Symfony\Component\Console\Output\OutputInterface;
 
 class DeleteDirectory extends Action
 {
@@ -20,20 +19,19 @@ class DeleteDirectory extends Action
 	}
 
 	/**
-	 * @param OutputInterface $output
 	 * @param Renderer $renderer
 	 */
-	public function run(OutputInterface $output, Renderer $renderer)
+	public function run(Renderer $renderer)
 	{
-		$renderer->writeln($output, 'Deleting directory ' . $renderer->highlight($this->dir));
+		$renderer->writeln($this, 'Deleting directory ' . $renderer->highlight($this->dir));
 
 		if (!is_dir($this->dir)) {
-			$renderer->writeSkip($output, 'Directory ' . $renderer->highlight($this->dir) . ' not found');
+			$renderer->writeSkip($this, 'Directory ' . $renderer->highlight($this->dir) . ' not found');
 			return;
 		}
 
 		rmdir($this->dir)
-			? $renderer->writeSuccess($output, 'Directory ' . $renderer->highlight($this->dir) . ' was deleted')
-			: $renderer->writeError($output, 'Directory ' . $renderer->highlight($this->dir) . ' was not deleted');
+			? $renderer->writeSuccess($this, 'Directory ' . $renderer->highlight($this->dir) . ' was deleted')
+			: $renderer->writeError($this, 'Directory ' . $renderer->highlight($this->dir) . ' was not deleted');
 	}
 }

@@ -4,7 +4,6 @@ namespace Kelemen\Flow\Action\Database\Mysql;
 
 use Kelemen\Flow\Action\Action;
 use Kelemen\Flow\Renderer\Renderer;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
 
 class CreateDatabaseMysql extends Action
@@ -31,21 +30,20 @@ class CreateDatabaseMysql extends Action
 	}
 
 	/**
-	 * @param OutputInterface $output
 	 * @param Renderer $renderer
 	 */
-	public function run(OutputInterface $output, Renderer $renderer)
+	public function run(Renderer $renderer)
 	{
-		$renderer->writeln($output, 'Creating MySQL database ' . $renderer->highlight($this->dbName));
+		$renderer->writeln($this, 'Creating MySQL database ' . $renderer->highlight($this->dbName));
 		$process = new Process('mysql -u ' . $this->user  . ' -p' . $this->password . ' -e "CREATE DATABASE ' . $this->dbName . '"');
 		$process->run();
 
 		if ($process->isSuccessful()) {
-			$renderer->writeSuccess($output, 'MySQL database ' . $renderer->highlight($this->dbName) . ' was created');
+			$renderer->writeSuccess($this, 'MySQL database ' . $renderer->highlight($this->dbName) . ' was created');
 			return;
 		}
 
-		$renderer->writeError($output, 'MySQL database ' . $renderer->highlight($this->dbName) . ' was not created');
-		$renderer->writeError($output, 'Reason: ' . $process->getErrorOutput());
+		$renderer->writeError($this, 'MySQL database ' . $renderer->highlight($this->dbName) . ' was not created');
+		$renderer->writeError($this, 'Reason: ' . $process->getErrorOutput());
 	}
 }

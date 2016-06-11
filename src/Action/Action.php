@@ -36,9 +36,8 @@ abstract class Action
 
 	/**
 	 * Execute action
-	 * @param OutputInterface $output
 	 * @param Renderer $renderer
 	 * @return void
 	 */
-	abstract public function run(OutputInterface $output, Renderer $renderer);
+	abstract public function run(Renderer $renderer);
 }
