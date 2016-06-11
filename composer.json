@@ -1,0 +1,20 @@
+{
+    "name": "kelemen/flow",
+    "type": "library",
+    "description": "Flow of any configured actions. Mainly used for local project initializations.",
+    "keywords": ["flow", "initialize"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Samuel Kelemen"
+        }
+    ],
+    "require": {
+        "php": ">=5.5",
+        "symfony/process": "~3.1",
+        "symfony/console": "~3.1"
+    },
+    "autoload": {
+        "classmap": ["src/"] 
+    }
+}
