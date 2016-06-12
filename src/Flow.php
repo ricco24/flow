@@ -33,10 +33,12 @@ class Flow
 
 	/**
 	 * @param Action $action
+	 * @return Action
 	 */
 	public function addAction(Action $action)
 	{
 		$this->actions[] = $action;
+		return $action;
 	}
 
 	/**
@@ -61,10 +63,11 @@ class Flow
 	 * @param string $dir
 	 * @param int $mode
 	 * @param bool $recursive
+	 * @return CreateDirectory
 	 */
 	public function createDirectory($dir, $mode = 0777, $recursive = false)
 	{
-		$this->addAction(new CreateDirectory($dir, $mode, $recursive));
+		return $this->addAction(new CreateDirectory($dir, $mode, $recursive));
 	}
 
 	/**
@@ -72,29 +75,32 @@ class Flow
 	 * @param string $dir
 	 * @param int $mode
 	 * @param bool $recursive
+	 * @return CreateDirectory
 	 */
 	public function createDirectoryForce($dir, $mode = 0777, $recursive = false)
 	{
-		$this->addAction(new CreateDirectory($dir, $mode, $recursive, true));
+		return $this->addAction(new CreateDirectory($dir, $mode, $recursive, true));
 	}
 
 	/**
 	 * Delete directory
 	 * @param string $dir
+	 * @return DeleteDirectory
 	 */
 	public function deleteDirectory($dir)
 	{
-		$this->addAction(new DeleteDirectory($dir));
+		return $this->addAction(new DeleteDirectory($dir));
 	}
 
 	/**
 	 * Move directory to new destination
 	 * @param string $oldDirName
 	 * @param string $newDirName
+	 * @return MoveDirectory
 	 */
 	public function moveDirectory($oldDirName, $newDirName)
 	{
-		$this->addAction(new MoveDirectory($oldDirName, $newDirName));
+		return $this->addAction(new MoveDirectory($oldDirName, $newDirName));
 	}
 
 	/**
@@ -106,10 +112,11 @@ class Flow
 	 * @param string $input
 	 * @param int $timeout
 	 * @param array $options
+	 * @return RunCommand
 	 */
 	public function runCommand($command, $printOutput = false, $cwd = null, array $env = null, $input = null, $timeout = 60, array $options = [])
 	{
-		$this->addAction(new RunCommand($command, $printOutput, $cwd, $env, $input, $timeout, $options));
+		return $this->addAction(new RunCommand($command, $printOutput, $cwd, $env, $input, $timeout, $options));
 	}
 
 	/**
@@ -117,10 +124,11 @@ class Flow
 	 * @param string $user
 	 * @param string $password
 	 * @param string $dbName
+	 * @return CreateDatabaseMysql
 	 */
 	public function createDatabaseMysql($user, $password, $dbName)
 	{
-		$this->addAction(new CreateDatabaseMysql($user, $password, $dbName));
+		return $this->addAction(new CreateDatabaseMysql($user, $password, $dbName));
 	}
 
 	/**
@@ -128,27 +136,30 @@ class Flow
 	 * @param string $user
 	 * @param string $password
 	 * @param string $dbName
+	 * @return DropDatabaseMysql
 	 */
 	public function dropDatabaseMysql($user, $password, $dbName)
 	{
-		$this->addAction(new DropDatabaseMysql($user, $password, $dbName));
+		return $this->addAction(new DropDatabaseMysql($user, $password, $dbName));
 	}
 
 	/**
 	 * Execute composer update
 	 * @param string $dir
+	 * @return UpdateComposer
 	 */
 	public function composerUpdate($dir)
 	{
-		$this->addAction(new UpdateComposer($dir));
+		return $this->addAction(new UpdateComposer($dir));
 	}
 
 	/**
 	 * Execute composer install
 	 * @param string $dir
+	 * @return InstallComposer
 	 */
 	public function composerInstall($dir)
 	{
-		$this->addAction(new InstallComposer($dir));
+		return $this->addAction(new InstallComposer($dir));
 	}
 }
