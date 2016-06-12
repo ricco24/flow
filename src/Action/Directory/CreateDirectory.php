@@ -50,7 +50,7 @@ class CreateDirectory extends Action
 			$this->runAction(new DeleteDirectory($this->dir), $renderer);
 		}
 
-		mkdir($this->dir, $this->mode, $this->recursive)
+		@mkdir($this->dir, $this->mode, $this->recursive)
 			? $renderer->writeSuccess($this, 'Directory ' . $renderer->highlight($this->dir) . ' was created')
 			: $renderer->writeError($this, 'Directory ' . $renderer->highlight($this->dir) . ' was not created');
 	}
