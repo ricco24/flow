@@ -59,7 +59,15 @@ class RunCommand extends Action
 
 		$callback = $this->printOutput
 			? function ($type, $buffer) use ($renderer) {
-				$renderer->write($this, $buffer, 1);
+				static $data;
+
+				if ($buffer !== PHP_EOL) {
+					$data .= $buffer;
+					return;
+				}
+
+				$renderer->writeln($this, $data, 1);
+				$data = '';
 			}
 			: null;
 
