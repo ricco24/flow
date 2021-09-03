@@ -35,7 +35,7 @@ class CreateDatabaseMysql extends Action
 	public function run(Renderer $renderer)
 	{
 		$renderer->writeln($this, 'Creating MySQL database ' . $renderer->highlight($this->dbName));
-		$process = new Process('mysql -u ' . $this->user  . ' -p' . $this->password . ' -e "CREATE DATABASE ' . $this->dbName . '"');
+		$process = Process::fromShellCommandline('mysql -u ' . $this->user  . ' -p' . $this->password . ' -e "CREATE DATABASE ' . $this->dbName . '"');
 		$process->run();
 
 		if ($process->isSuccessful()) {

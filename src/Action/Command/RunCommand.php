@@ -26,9 +26,6 @@ class RunCommand extends Action
 	/** @var int */
 	private $timeout;
 
-	/** @var array */
-	private $options;
-
 	/**
 	 * @param string $command
 	 * @param bool $printOutput
@@ -36,9 +33,8 @@ class RunCommand extends Action
 	 * @param array|null $env
 	 * @param string|null $input
 	 * @param int|float|null $timeout
-	 * @param array $options
 	 */
-	public function __construct($command, $printOutput, $cwd = null, array $env = null, $input = null, $timeout = 60, array $options = [])
+	public function __construct($command, $printOutput, $cwd = null, array $env = null, $input = null, $timeout = 60)
 	{
 		$this->command = $command;
 		$this->printOutput = $printOutput;
@@ -46,7 +42,6 @@ class RunCommand extends Action
 		$this->env = $env;
 		$this->input = $input;
 		$this->timeout = $timeout;
-		$this->options = $options;
 	}
 
 	/**
@@ -55,7 +50,7 @@ class RunCommand extends Action
 	public function run(Renderer $renderer)
 	{
 		$renderer->writeln($this, 'Executing command ' . $renderer->highlight($this->command));
-		$process = new Process($this->command, $this->cwd, $this->env, $this->input, $this->timeout, $this->options);
+		$process = Process::fromShellCommandline($this->command, $this->cwd, $this->env, $this->input, $this->timeout);
 
 		$callback = $this->printOutput
 			? function ($type, $buffer) use ($renderer) {

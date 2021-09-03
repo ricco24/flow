@@ -24,6 +24,6 @@ class InstallComposer extends Action
 	 */
 	public function run(Renderer $renderer)
 	{
-		$this->runAction(new RunCommand('cd ' . $this->dir . ' && composer install', true, null, null, null, 1800, []), $renderer);
+		$this->runAction(new RunCommand('cd ' . $this->dir . ' && composer install', true, null, null, null, 1800), $renderer);
 	}
 }
