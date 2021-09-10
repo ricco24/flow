@@ -35,7 +35,7 @@ class DropDatabaseMysql extends Action
 	public function run(Renderer $renderer)
 	{
 		$renderer->writeln($this, 'Dropping MySQL database ' . $renderer->highlight($this->dbName));
-		$process = new Process('mysql -u ' . $this->user  . ' -p' . $this->password . ' -e "DROP DATABASE IF EXISTS ' . $this->dbName . '"');
+		$process = Process::fromShellCommandline('mysql -u ' . $this->user  . ' -p' . $this->password . ' -e "DROP DATABASE IF EXISTS ' . $this->dbName . '"');
 		$process->run();
 
 		if ($process->isSuccessful()) {

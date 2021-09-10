@@ -24,6 +24,6 @@ class UpdateComposer extends Action
 	 */
 	public function run(Renderer $renderer)
 	{
-		$this->runAction(new RunCommand('cd ' . $this->dir . ' && composer update', true, null, null, null, 1800, []), $renderer);
+		$this->runAction(new RunCommand('cd ' . $this->dir . ' && composer update', true, null, null, null, 1800), $renderer);
 	}
 }

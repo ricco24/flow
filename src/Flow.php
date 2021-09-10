@@ -63,7 +63,7 @@ class Flow
 	 * @param string $dir
 	 * @param int $mode
 	 * @param bool $recursive
-	 * @return CreateDirectory
+	 * @return Action
 	 */
 	public function createDirectory($dir, $mode = 0777, $recursive = false)
 	{
@@ -75,7 +75,7 @@ class Flow
 	 * @param string $dir
 	 * @param int $mode
 	 * @param bool $recursive
-	 * @return CreateDirectory
+	 * @return Action
 	 */
 	public function createDirectoryForce($dir, $mode = 0777, $recursive = false)
 	{
@@ -85,7 +85,7 @@ class Flow
 	/**
 	 * Delete directory
 	 * @param string $dir
-	 * @return DeleteDirectory
+	 * @return Action
 	 */
 	public function deleteDirectory($dir)
 	{
@@ -96,7 +96,7 @@ class Flow
 	 * Move directory to new destination
 	 * @param string $oldDirName
 	 * @param string $newDirName
-	 * @return MoveDirectory
+	 * @return Action
 	 */
 	public function moveDirectory($oldDirName, $newDirName)
 	{
@@ -112,7 +112,7 @@ class Flow
 	 * @param string $input
 	 * @param int $timeout
 	 * @param array $options
-	 * @return RunCommand
+	 * @return Action
 	 */
 	public function runCommand($command, $printOutput = false, $cwd = null, array $env = null, $input = null, $timeout = 60, array $options = [])
 	{
@@ -124,7 +124,7 @@ class Flow
 	 * @param string $user
 	 * @param string $password
 	 * @param string $dbName
-	 * @return CreateDatabaseMysql
+	 * @return Action
 	 */
 	public function createDatabaseMysql($user, $password, $dbName)
 	{
@@ -136,7 +136,7 @@ class Flow
 	 * @param string $user
 	 * @param string $password
 	 * @param string $dbName
-	 * @return DropDatabaseMysql
+	 * @return Action
 	 */
 	public function dropDatabaseMysql($user, $password, $dbName)
 	{
@@ -146,7 +146,7 @@ class Flow
 	/**
 	 * Execute composer update
 	 * @param string $dir
-	 * @return UpdateComposer
+	 * @return Action
 	 */
 	public function composerUpdate($dir)
 	{
@@ -156,7 +156,7 @@ class Flow
 	/**
 	 * Execute composer install
 	 * @param string $dir
-	 * @return InstallComposer
+	 * @return Action
 	 */
 	public function composerInstall($dir)
 	{
