@@ -1,4 +1,5 @@
 FLOW
 ============
 
-Flow of any configured actions. Mainly used for local project initializations.
+Console utility that helps streamline local project setup in PHP, 
+replacing need for bash scripts.
