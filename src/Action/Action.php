@@ -29,7 +29,7 @@ abstract class Action
      * @param Action   $action
      * @param Renderer $renderer
      */
-    protected function runAction(Action $action, Renderer $renderer)
+    protected function runAction(Action $action, Renderer $renderer): void
     {
         $action->setLevel($this->getNextLevel());
         $action->run($renderer);
@@ -40,5 +40,5 @@ abstract class Action
      * @param Renderer $renderer
      * @return void
      */
-    abstract public function run(Renderer $renderer);
+    abstract public function run(Renderer $renderer): void;
 }
