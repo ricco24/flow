@@ -15,9 +15,6 @@ class DeleteDirectory extends Action
         $this->dir = $dir;
     }
 
-    /**
-     * @param Renderer $renderer
-     */
     public function run(Renderer $renderer): void
     {
         $renderer->writeln($this, 'Deleting directory '.$renderer->highlight($this->dir));

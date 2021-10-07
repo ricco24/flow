@@ -17,27 +17,27 @@ class DefaultRenderer implements Renderer
         $this->registerStyles($this->output);
     }
 
-    public function write(Action $action, $msg, $innerLevel = 0)
+    public function write(Action $action, string $msg, int $innerLevel = 0)
     {
         $this->output->write(str_repeat(' ', ($action->getLevel() + $innerLevel) * 2).'-> '.$msg);
     }
 
-    public function writeln(Action $action, $msg, $innerLevel = 0)
+    public function writeln(Action $action, string $msg, int $innerLevel = 0)
     {
         $this->output->writeln(str_repeat(' ', ($action->getLevel() + $innerLevel) * 2).'-> '.$msg);
     }
 
-    public function writeSkip(Action $action, $msg, $innerLevel = 0)
+    public function writeSkip(Action $action, string $msg, int $innerLevel = 0)
     {
         $this->writeln($action, '<yellow>[SKIPPING]</yellow> '.$msg, $innerLevel);
     }
 
-    public function writeSuccess(Action $action, $msg, $innerLevel = 0)
+    public function writeSuccess(Action $action, string $msg, int $innerLevel = 0)
     {
         $this->writeln($action, '<info>[SUCCESS]</info> '.$msg, $innerLevel);
     }
 
-    public function writeError(Action $action, $msg, $innerLevel = 0)
+    public function writeError(Action $action, string $msg, int $innerLevel = 0)
     {
         $this->writeln($action, '<error>[ERROR]</error> '.$msg, $innerLevel);
     }

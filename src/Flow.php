@@ -28,6 +28,11 @@ class Flow
         $this->renderer = $renderer ?: new DefaultRenderer();
     }
 
+    /**
+     * @template T of Action
+     * @param T $action
+     * @return T
+     */
     public function addAction(Action $action): Action
     {
         $this->actions[] = $action;
@@ -46,10 +51,10 @@ class Flow
 
     /**********************************************************\
      * Wrapper functions
-     * \**********************************************************/
+    \**********************************************************/
 
     /* @noinspection PhpOptionalBeforeRequiredParametersInspection */
-    public function createDirectory(string $dir, int $mode = 0777, bool $recursive): Action
+    public function createDirectory(string $dir, int $mode = 0777, bool $recursive): CreateDirectory
     {
         return $this->addAction(new CreateDirectory($dir, $mode, $recursive));
     }
@@ -59,15 +64,15 @@ class Flow
      * @param string $dir
      * @param int    $mode
      * @param bool   $recursive
-     * @return Action
+     * @return CreateDirectory
      * @noinspection PhpOptionalBeforeRequiredParametersInspection
      */
-    public function createDirectoryForce(string $dir, int $mode = 0777, bool $recursive): Action
+    public function createDirectoryForce(string $dir, int $mode = 0777, bool $recursive): CreateDirectory
     {
         return $this->addAction(new CreateDirectory($dir, $mode, $recursive, true));
     }
 
-    public function deleteDirectory(string $dir): Action
+    public function deleteDirectory(string $dir): DeleteDirectory
     {
         return $this->addAction(new DeleteDirectory($dir));
     }
@@ -76,9 +81,9 @@ class Flow
      * Move directory to new destination
      * @param string $oldDirName
      * @param string $newDirName
-     * @return Action
+     * @return MoveDirectory
      */
-    public function moveDirectory(string $oldDirName, string $newDirName): Action
+    public function moveDirectory(string $oldDirName, string $newDirName): MoveDirectory
     {
         return $this->addAction(new MoveDirectory($oldDirName, $newDirName));
     }
@@ -91,7 +96,7 @@ class Flow
      * @param array|null  $env
      * @param string|null $input
      * @param int         $timeout
-     * @return Action
+     * @return RunCommand
      */
     public function runCommand(
         string $command,
@@ -100,7 +105,7 @@ class Flow
         array $env = null,
         string $input = null,
         int $timeout = 60
-    ): Action {
+    ): RunCommand {
         return $this->addAction(new RunCommand($command, $printOutput, $cwd, $env, $input, $timeout));
     }
 
@@ -109,9 +114,9 @@ class Flow
      * @param string $user
      * @param string $password
      * @param string $dbName
-     * @return Action
+     * @return CreateDatabaseMysql
      */
-    public function createDatabaseMysql(string $user, string $password, string $dbName): Action
+    public function createDatabaseMysql(string $user, string $password, string $dbName): CreateDatabaseMysql
     {
         return $this->addAction(new CreateDatabaseMysql($user, $password, $dbName));
     }
@@ -121,9 +126,9 @@ class Flow
      * @param string $user
      * @param string $password
      * @param string $dbName
-     * @return Action
+     * @return DropDatabaseMysql
      */
-    public function dropDatabaseMysql(string $user, string $password, string $dbName): Action
+    public function dropDatabaseMysql(string $user, string $password, string $dbName): DropDatabaseMysql
     {
         return $this->addAction(new DropDatabaseMysql($user, $password, $dbName));
     }
@@ -131,9 +136,9 @@ class Flow
     /**
      * Execute composer update
      * @param string $dir
-     * @return Action
+     * @return UpdateComposer
      */
-    public function composerUpdate(string $dir): Action
+    public function composerUpdate(string $dir): UpdateComposer
     {
         return $this->addAction(new UpdateComposer($dir));
     }
@@ -141,9 +146,9 @@ class Flow
     /**
      * Execute composer install
      * @param string $dir
-     * @return Action
+     * @return InstallComposer
      */
-    public function composerInstall(string $dir): Action
+    public function composerInstall(string $dir): InstallComposer
     {
         return $this->addAction(new InstallComposer($dir));
     }

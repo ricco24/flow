@@ -20,7 +20,7 @@ class CreateDirectory extends Action
     private $force;
 
     /** @noinspection PhpOptionalBeforeRequiredParametersInspection */
-    public function __construct(string $dir, int $mode = 0777, bool $recursive, bool $force)
+    public function __construct(string $dir, int $mode = 0777, bool $recursive, bool $force = false)
     {
         $this->dir = $dir;
         $this->mode = $mode;

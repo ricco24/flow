@@ -24,9 +24,6 @@ class CreateDatabaseMysql extends Action
         $this->dbName = $dbName;
     }
 
-    /**
-     * @param Renderer $renderer
-     */
     public function run(Renderer $renderer)
     {
         $renderer->writeln($this, 'Creating MySQL database '.$renderer->highlight($this->dbName));

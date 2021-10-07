@@ -21,7 +21,7 @@ interface Renderer
      * @param int    $innerLevel
      * @return void
      */
-    public function write(Action $action, $msg, $innerLevel = 0);
+    public function write(Action $action, string $msg, int $innerLevel = 0);
 
     /**
      * Writes a message to the output and adds a newline at the end.
@@ -30,7 +30,7 @@ interface Renderer
      * @param int    $innerLevel
      * @return void
      */
-    public function writeln(Action $action, $msg, $innerLevel = 0);
+    public function writeln(Action $action, string $msg, int $innerLevel = 0);
 
     /**
      * Write a skip message to the output and adds a newline at the end.
@@ -39,7 +39,7 @@ interface Renderer
      * @param int    $innerLevel
      * @return void
      */
-    public function writeSkip(Action $action, $msg, $innerLevel = 0);
+    public function writeSkip(Action $action, string $msg, int $innerLevel = 0);
 
     /**
      * Write a success message to the output and adds a newline at the end.
@@ -48,7 +48,7 @@ interface Renderer
      * @param int    $innerLevel
      * @return void
      */
-    public function writeSuccess(Action $action, $msg, $innerLevel = 0);
+    public function writeSuccess(Action $action, string $msg, int $innerLevel = 0);
 
     /**
      * Write an error message to the output and adds a newline at the end.
@@ -57,7 +57,7 @@ interface Renderer
      * @param int    $innerLevel
      * @return void
      */
-    public function writeError(Action $action, $msg, $innerLevel = 0);
+    public function writeError(Action $action, string $msg, int $innerLevel = 0);
 
     /**
      * Write a separator to the output

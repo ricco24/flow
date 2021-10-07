@@ -24,9 +24,6 @@ class DropDatabaseMysql extends Action
         $this->dbName = $dbName;
     }
 
-    /**
-     * @param Renderer $renderer
-     */
     public function run(Renderer $renderer)
     {
         $renderer->writeln($this, 'Dropping MySQL database '.$renderer->highlight($this->dbName));
